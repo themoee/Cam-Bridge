@@ -29,15 +29,24 @@ param(
 $ErrorActionPreference = 'Stop'
 
 if (-not $Path) {
-    $candidates = @(
-        (Join-Path ${env:ProgramFiles(x86)} 'Respondus\LockDown Browser\LockDown Browser.exe'),
-        (Join-Path $env:ProgramFiles 'Respondus\LockDown Browser\LockDown Browser.exe'),
-        (Join-Path $env:LOCALAPPDATA 'Respondus\LockDown Browser\LockDown Browser.exe')
-    ) | Where-Object { $_ -and (Test-Path $_) }
-    $Path = $candidates | Select-Object -First 1
+    # Respondus has shipped the exe under a few names ("LockDown Browser.exe",
+    # "LockDownBrowser.exe", ...) - just take any LockDown exe in the standard
+    # install folders.
+    $roots = @(
+        (Join-Path ${env:ProgramFiles(x86)} 'Respondus\LockDown Browser'),
+        (Join-Path $env:ProgramFiles 'Respondus\LockDown Browser'),
+        (Join-Path $env:LOCALAPPDATA 'Respondus\LockDown Browser')
+    )
+    $candidates = foreach ($r in $roots) {
+        if ($r -and (Test-Path $r)) {
+            Get-ChildItem -Path $r -Filter '*.exe' -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -like '*ockdown*' }
+        }
+    }
+    $Path = ($candidates | Select-Object -First 1).FullName
 }
 if (-not $Path) {
-    Write-Error "LockDown Browser not found. Install it, or pass -Path 'C:\...\LockDown Browser.exe'."
+    Write-Error "LockDown Browser not found. Install it, or pass -Path 'C:\...\LockDownBrowser.exe'."
     exit 1
 }
 
