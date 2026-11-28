@@ -41,7 +41,7 @@ def main():
     srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     srv.bind((args.host, args.port))
     srv.listen(1)
-    print(f"[sender] webcam open. Waiting for a receiver on port {args.port} ...  (Ctrl+C to quit)")
+    print(f"[sender] webcam open. Waiting for a receiver on port {args.port} ...  (stop: stop_cam_bridge.ps1 / Ctrl+C)")
 
     encode_params = [cv2.IMWRITE_JPEG_QUALITY, int(args.quality)]
     try:

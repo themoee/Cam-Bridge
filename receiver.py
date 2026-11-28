@@ -112,7 +112,7 @@ def main():
 
     with cam:
         print(f"[receiver] virtual camera running: {display_name}{'  [disguised]' if disguised else ''}")
-        print("[receiver] Pick this camera in your app. Ctrl+C to stop.")
+        print("[receiver] Running. Stop with stop_cam_bridge.ps1 (or Ctrl+C here).")
         try:
             while True:
                 header = recvall(sock, 4)

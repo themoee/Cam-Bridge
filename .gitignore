@@ -6,3 +6,7 @@ s_out.txt
 s_err.txt
 r_out.txt
 r_err.txt
+
+# run logs from start_cam_bridge.ps1
+cam-*.out.log
+cam-*.err.log

@@ -108,4 +108,4 @@ if ($SenderIp) {
 Write-Host "`nSetup done." -ForegroundColor Cyan
 Write-Host 'On the SENDER laptop:  py -3 sender.py' -ForegroundColor Cyan
 Write-Host "On this receiver:      py -3 receiver.py <sender-ip>   (or let the autostart task run it)" -ForegroundColor Cyan
-Write-Host "Close it any time with Ctrl+C, or:  Stop-Process -Name cam-receiver -Force" -ForegroundColor Cyan
+Write-Host "Stop it with:  .\stop_cam_bridge.ps1    (start detached with .\start_cam_bridge.ps1 -Role receiver -SenderIp <ip>)" -ForegroundColor Cyan

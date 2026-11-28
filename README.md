@@ -67,15 +67,28 @@ check that both laptops are on the same network and that port 5000 is allowed on
 
 ---
 
-## 5. Running it in the background
+## 5. Starting and stopping (no Ctrl+C)
 
-If you don't want a console window sitting open, either:
+Use the two helper scripts. They launch it detached with no console window — so it
+survives closing the terminal or disconnecting your RDP session — and give you a
+real off switch:
 
-- Launch with `pythonw.exe sender.py` (runs with no console window), or
-- Build a windowless `.exe` (below) and start it from the tray / Task Scheduler.
+```powershell
+.\start_cam_bridge.ps1 -Role receiver -SenderIp 100.64.0.5   # start (background)
+.\stop_cam_bridge.ps1 -Role receiver                          # stop
+```
 
-It still shows up normally in Task Manager — this is just a regular background
-process, not a hidden one.
+`stop_cam_bridge.ps1` also catches copies launched from source, and can un-arm the
+autostart task and restore the camera name:
+
+```powershell
+.\stop_cam_bridge.ps1                 # stop whatever Cam Bridge is running
+.\stop_cam_bridge.ps1 -Task -Restore  # also disable the logon task + un-rename the camera
+```
+
+Logs go to `cam-<role>.out.log` / `cam-<role>.err.log`. The process is still a
+normal, visible Task Manager entry — just without a console window. `Ctrl+C` still
+works if you happen to run it in the foreground.
 
 **Windowless exe + autostart (optional):** `cam-sender.spec` / `cam-receiver.spec` now
 build with `console=False`, so `dist\cam-sender.exe` / `dist\cam-receiver.exe` run with
