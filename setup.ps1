@@ -65,13 +65,24 @@ if (-not $py) {
 }
 $pyExe = $py.Source
 $pyArgs = @()
-if ((Split-Path $pyExe -Leaf) -in 'py.exe', 'py') { $pyArgs = @('-3') }
-Ok "Windows + Python ($pyExe) + repo OK"
+if ((Split-Path $pyExe -Leaf) -in 'py.exe', 'py') {
+    $pyArgs = @('-3')
+    # pyvirtualcam ships wheels only up to Python 3.12 - prefer it if installed.
+    & $pyExe -3.12 --version *> $null
+    if ($LASTEXITCODE -eq 0) { $pyArgs = @('-3.12') }
+}
+Ok "Windows + Python ($pyExe $(if ($pyArgs) { $pyArgs -join ' ' })) + repo OK"
 
 # ---------------------------------------------------------------------------
 Step 1 'Installing Python dependencies'
 & $pyExe @pyArgs -m pip install --upgrade pip
 & $pyExe @pyArgs -m pip install -r (Join-Path $root 'requirements.txt')
+if ($LASTEXITCODE -ne 0) {
+    Write-Error ("pip install failed (exit $LASTEXITCODE). Usual cause: this Python is too new - " +
+        "pyvirtualcam ships wheels only up to Python 3.12. Fix: run  winget install --id Python.Python.3.12 -e , " +
+        "open a NEW PowerShell, then re-run this script.")
+    exit 1
+}
 Ok 'opencv / numpy / pyvirtualcam installed'
 
 # ---------------------------------------------------------------------------
