@@ -1,0 +1,73 @@
+573 INFO: PyInstaller: 6.20.0, contrib hooks: 2026.6
+573 INFO: Python: 3.12.10
+617 INFO: Platform: Windows-11-10.0.26200-SP0
+625 INFO: Python environment: C:\Users\moise\AppData\Local\Programs\Python\Python312
+625 INFO: wrote C:\Users\moise\Projects\cam-bridge\cam-sender.spec
+650 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\moise\\Projects\\cam-bridge',
+ 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\python312.zip',
+ 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\DLLs',
+ 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib',
+ 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312',
+ 'C:\\Users\\moise\\AppData\\Roaming\\Python\\Python312\\site-packages',
+ 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages',
+ 'C:\\Users\\moise\\Projects\\cam-bridge']
+4831 INFO: checking Analysis
+4831 INFO: Building Analysis because Analysis-00.toc is non existent
+4831 INFO: Looking for Python shared library...
+4831 INFO: Using Python shared library: C:\Users\moise\AppData\Local\Programs\Python\Python312\python312.dll
+4831 INFO: Running Analysis Analysis-00.toc
+4831 INFO: Target bytecode optimization level: 0
+4831 INFO: Initializing module dependency graph...
+4842 INFO: Initializing module graph hook caches...
+5020 INFO: Analyzing modules for base_library.zip ...
+8134 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+8405 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+12715 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+19369 INFO: Caching module dependency graph...
+19439 INFO: Analyzing C:\Users\moise\Projects\cam-bridge\sender.py
+19480 INFO: Processing standard module hook 'hook-cv2.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+21536 INFO: Processing standard module hook 'hook-numpy.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+23345 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+23357 INFO: SetuptoolsInfo: initializing cached setuptools info...
+26532 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+27025 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+27857 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+30371 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+30642 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+35468 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks'
+36607 INFO: Processing standard module hook 'hook-psutil.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+37627 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+38871 INFO: Processing module hooks (post-graph stage)...
+39274 INFO: Performing binary vs. data reclassification (7 entries)
+39397 INFO: Looking for ctypes DLLs
+39478 INFO: Analyzing run-time hooks ...
+39487 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+39511 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+39536 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+39586 INFO: Creating base_library.zip...
+39618 INFO: Looking for dynamic libraries
+42061 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy.libs', 'C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\cv2\\../../x64/vc17/bin']
+42061 INFO: Extra DLL search directories (PATH): ['C:\\Users\\moise\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\cv2\\../../x64/vc17/bin']
+43433 INFO: Warnings written to C:\Users\moise\Projects\cam-bridge\build\cam-sender\warn-cam-sender.txt
+43504 INFO: Graph cross-reference written to C:\Users\moise\Projects\cam-bridge\build\cam-sender\xref-cam-sender.html
+43636 INFO: checking PYZ
+43636 INFO: Building PYZ because PYZ-00.toc is non existent
+43636 INFO: Building PYZ (ZlibArchive) C:\Users\moise\Projects\cam-bridge\build\cam-sender\PYZ-00.pyz
+44378 INFO: Building PYZ (ZlibArchive) C:\Users\moise\Projects\cam-bridge\build\cam-sender\PYZ-00.pyz completed successfully.
+44404 INFO: checking PKG
+44404 INFO: Building PKG because PKG-00.toc is non existent
+44404 INFO: Building PKG (CArchive) cam-sender.pkg
+69684 INFO: Building PKG (CArchive) cam-sender.pkg completed successfully.
+69684 INFO: Bootloader C:\Users\moise\AppData\Local\Programs\Python\Python312\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+69684 INFO: checking EXE
+69684 INFO: Building EXE because EXE-00.toc is non existent
+69684 INFO: Building EXE from EXE-00.toc
+69693 INFO: Copying bootloader EXE to C:\Users\moise\Projects\cam-bridge\dist\cam-sender.exe
+69893 INFO: Copying icon to EXE
+70003 INFO: Copying 0 resources to EXE
+70003 INFO: Embedding manifest in EXE
+70085 INFO: Appending PKG archive to EXE
+70313 INFO: Fixing EXE headers
+72168 INFO: Building EXE from EXE-00.toc completed successfully.
+72168 INFO: Build complete! The results are available in: C:\Users\moise\Projects\cam-bridge\dist
