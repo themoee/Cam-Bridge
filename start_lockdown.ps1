@@ -53,6 +53,13 @@ if (-not $Path) {
 $env:SESSIONNAME = 'Console'
 $env:CLIENTNAME  = $null
 
-Write-Host "Starting LockDown Browser with SESSIONNAME=Console ..."
-Write-Host "  ($Path)"
-Start-Process -FilePath $Path
+$spoofHost = 'C:\ProgramData\CamBridge\spoof_host.exe'
+if (Test-Path $spoofHost) {
+    Write-Host "Starting LockDown Browser (SMBIOS-spoofed) with SESSIONNAME=Console ..."
+    Write-Host "  ($Path)"
+    Start-Process -FilePath $spoofHost -ArgumentList "`"$Path`""
+} else {
+    Write-Host "Starting LockDown Browser with SESSIONNAME=Console ..."
+    Write-Host "  ($Path)"
+    Start-Process -FilePath $Path
+}

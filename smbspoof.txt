@@ -1,0 +1,14 @@
+# smbspoof string pairs - "old=>new". Values are padded/truncated to the old
+# length automatically (SMBIOS string indexes must not shift).
+# Pairs only match if the string is actually present, so extra lines are inert.
+
+# --- Amazon EC2 (the AWS server) ---
+Amazon EC2=>Dell Inc.
+m7i-flex.large=>Latitude 5420
+m7i-flex=>Latitude
+
+# --- moise's laptop (test values, inert on the server) ---
+ASUSTeK COMPUTER INC.=>Dell Inc.
+ROG Zephyrus G14 GA403UV_GA403UV=>Latitude 5420
+American Megatrends International, LLC.=>Dell Inc.
+GA403UV.306=>1.19.0

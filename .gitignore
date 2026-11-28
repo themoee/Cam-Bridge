@@ -12,3 +12,11 @@ cam-*.log
 
 # disguise_server.ps1 undo snapshot
 disguise_backup.json
+
+# smbspoof / watcher / test artifacts
+smbspoof.log
+spoof_watch.log
+spoof_host.log
+smbios_real.txt
+smbios_spoofed.txt
+disguise_backup.json
