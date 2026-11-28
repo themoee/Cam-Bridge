@@ -156,7 +156,44 @@ Notes:
 
 ---
 
-## 7. Build a standalone .exe (optional)
+## 7. Hiding the server itself (AWS VM / Windows Server / RDP)
+
+LockDown Browser advertises detecting virtual machines and remote desktops, and an
+EC2 box tells on itself everywhere ("Amazon EC2" in the BIOS strings, an
+`EC2AMAZ-XXXXXXX` computer name, a "Windows Server" edition string, Amazon agent
+services). `disguise_server.ps1` rewrites what software actually reads:
+
+```powershell
+.\disguise_server.ps1 -Status                                          # what it looks like now
+.\disguise_server.ps1 -Profile dell -HideAwsAgents -MaskServerEdition -InstallStartupTask
+.\disguise_server.ps1 -Restore                                          # undo everything
+```
+
+It changes the BIOS/OEM/system strings to an ordinary PC (Dell / HP / Lenovo),
+renames `EC2AMAZ-*` to `DESKTOP-XXXXXXX` (reboot needed), masks "Windows Server"
+as "Windows 10 Pro", and can stop the AWS agent services. Everything is backed up
+to `disguise_backup.json`, so `-Restore` undoes it all. Run it elevated.
+
+RDP: `start_lockdown.ps1` starts LockDown Browser with `SESSIONNAME=Console`, so
+environment-variable checks don't see a remote session. The OS-level remote
+session flag cannot be hidden from *inside* RDP — control the box with VNC or
+Parsec instead of RDP for full cover.
+
+Caveats (honest ones):
+
+- `HKLM\HARDWARE` is rebuilt at every boot, so the BIOS strings revert — use
+  `-InstallStartupTask`, which re-applies them automatically at startup.
+- WMI caches BIOS/system strings: the registry changes immediately, but WMI
+  reflects them after a reboot (the startup task re-applies them before apps
+  query).
+- Respondus doesn't publish its exact checks, so this covers the *common*
+  signals only. Always do a practice exam before the real one.
+- Driver-level tells (e.g. the ENA network adapter's "Amazon Elastic Network
+  Adapter" name) are not changed.
+
+---
+
+## 8. Build a standalone .exe (optional)
 
 So the other laptop doesn't need Python installed:
 

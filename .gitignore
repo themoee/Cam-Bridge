@@ -9,3 +9,6 @@ r_err.txt
 
 # run logs (start_cam_bridge.ps1 / the windowless exes)
 cam-*.log
+
+# disguise_server.ps1 undo snapshot
+disguise_backup.json
