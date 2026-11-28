@@ -45,6 +45,8 @@ python receiver.py 192.168.1.42
 (use laptop A's actual IP). Or just double-click `run_receiver.bat` and type the IP when asked.
 
 Now open your app on laptop B and choose **OBS Virtual Camera** as the camera. You'll see A's live webcam.
+If the sender isn't up yet (or drops mid-stream), the receiver keeps retrying every
+3 s, so the order you start them in doesn't matter.
 
 ---
 
@@ -86,7 +88,7 @@ autostart task and restore the camera name:
 .\stop_cam_bridge.ps1 -Task -Restore  # also disable the logon task + un-rename the camera
 ```
 
-Logs go to `cam-<role>.out.log` / `cam-<role>.err.log`. The process is still a
+Logs go to `cam-<role>.log` (exe) or `cam-<role>.out.log` / `.err.log` (pythonw). The process is still a
 normal, visible Task Manager entry — just without a console window. `Ctrl+C` still
 works if you happen to run it in the foreground.
 

@@ -11,6 +11,7 @@ Then run receiver.py on the other laptop, pointing at this laptop's IP.
 """
 
 import argparse
+import os
 import socket
 import struct
 import sys
@@ -18,7 +19,24 @@ import sys
 import cv2
 
 
+def _ensure_stdio(role):
+    """Windowless builds (console=False) have no console, so Python sets
+    sys.stdout/sys.stderr to None and every print() is silently dropped.
+    In that case log to cam-<role>.log next to the exe/script, so there is
+    something to read when it runs in the background."""
+    if sys.stdout is not None and sys.stderr is not None:
+        return
+    if getattr(sys, "frozen", False):
+        base = os.path.dirname(os.path.abspath(sys.executable))
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+    log = open(os.path.join(base, f"cam-{role}.log"), "a", buffering=1, encoding="utf-8")
+    sys.stdout = log
+    sys.stderr = log
+
+
 def main():
+    _ensure_stdio("sender")
     ap = argparse.ArgumentParser(description="Cam Bridge sender: stream this laptop's webcam over the LAN.")
     ap.add_argument("--host", default="0.0.0.0", help="Interface to listen on (default: all)")
     ap.add_argument("--port", type=int, default=5000, help="TCP port (default: 5000)")

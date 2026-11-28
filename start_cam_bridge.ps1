@@ -55,9 +55,27 @@ if ((-not $FromSource) -and (Test-Path $exe)) {
     $launchArgs = @('-u', (Join-Path $root "$Role.py")) + $extraArgs
 }
 
-$p = Start-Process -FilePath $file -ArgumentList $launchArgs -WorkingDirectory $root `
-    -WindowStyle Hidden -RedirectStandardOutput $outLog -RedirectStandardError $errLog -PassThru
+$procArgs = @{
+    FilePath              = $file
+    WorkingDirectory       = $root
+    WindowStyle           = 'Hidden'
+    PassThru              = $true
+}
+# Windowless exes have no stdout at all (the app logs to cam-<role>.log itself);
+# only the pythonw path benefits from redirected console output.
+if ($file -eq 'pythonw') {
+    $procArgs.RedirectStandardOutput = $outLog
+    $procArgs.RedirectStandardError = $errLog
+}
+# Start-Process on Windows PowerShell 5.1 rejects an empty -ArgumentList.
+if ($launchArgs -and $launchArgs.Count) { $procArgs.ArgumentList = $launchArgs }
+
+$p = Start-Process @procArgs
 
 Write-Host "Started $Role (pid $($p.Id)) using $(Split-Path $file -Leaf)."
-Write-Host "  logs:  $outLog  /  $errLog"
+if ($file -eq 'pythonw') {
+    Write-Host "  logs:  $outLog  /  $errLog"
+} else {
+    Write-Host "  log:   $(Join-Path $root "cam-$Role.log")"
+}
 Write-Host "  stop:  .\stop_cam_bridge.ps1 -Role $Role"
