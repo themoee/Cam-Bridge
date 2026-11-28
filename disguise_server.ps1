@@ -118,8 +118,16 @@ if ($Status) {
     Write-Host "BIOS (WMI)    : '$($bios.Manufacturer)' / '$($bios.SMBIOSBIOSVersion)'"
     Write-Host "ProductName   : $(Get-RegValue $winNtKey 'ProductName')"
     Write-Host "SESSIONNAME   : $env:SESSIONNAME"
-    $agents = Get-Service -Name $agentServices -ErrorAction SilentlyContinue
-    if ($agents) { Write-Host "AWS agents    : $(($agents.Name | Select-Object -Unique) -join ', ')" }
+    foreach ($a in (Get-Service -Name $agentServices -ErrorAction SilentlyContinue)) {
+        Write-Host "AWS agent     : $($a.Name) = $($a.Status) / $($a.StartType)"
+    }
+    $t = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+    if ($t) {
+        $i = $t | Get-ScheduledTaskInfo
+        Write-Host "Boot task     : $($t.State), last run $($i.LastRunTime), result $($i.LastTaskResult)"
+    } else {
+        Write-Host "Boot task     : not registered (run with -InstallStartupTask)"
+    }
     if (Test-Path $backupFile) { Write-Host "Backup        : $backupFile (can -Restore)" }
     exit 0
 }
@@ -226,9 +234,13 @@ if ($InstallStartupTask) {
     if ($MaskServerEdition) { $arg += ' -MaskServerEdition' }
     if ($HideAwsAgents)    { $arg += ' -HideAwsAgents' }
     $act = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $arg
-    $trg = New-ScheduledTaskTrigger -AtStartup
-    Register-ScheduledTask -TaskName $taskName -Action $act -Trigger $trg -RunLevel Highest -Force | Out-Null
-    Write-Host "Startup task '$taskName' registered - the disguise re-applies after every reboot."
+    # Fire at boot AND at logon: the logon pass re-applies after Windows has
+    # rebuilt HKLM\HARDWARE and self-healed ProductName during startup.
+    $trg = @((New-ScheduledTaskTrigger -AtStartup), (New-ScheduledTaskTrigger -AtLogOn))
+    $set = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
+        -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
+    Register-ScheduledTask -TaskName $taskName -Action $act -Trigger $trg -Settings $set -RunLevel Highest -Force | Out-Null
+    Write-Host "Task '$taskName' registered (boot + logon triggers) - the disguise re-applies after every reboot."
 }
 
 Write-Host "Done. The machine now presents as a $Profile PC."
