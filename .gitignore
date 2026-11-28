@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+# transient test output
+s_out.txt
+s_err.txt
+r_out.txt
+r_err.txt
